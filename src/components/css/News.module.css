@@ -1,0 +1,26 @@
+.container{
+    padding: 2% 5%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.tarjetas{
+    padding: 2%;
+    border: 3px rgb(240, 241, 241) solid;
+    border-radius: 20px;
+
+    box-shadow: 6px 8px 10px rgb(197, 197, 197);
+    background-color: rgb(240, 241, 241);
+    text-align: center;
+}
+.tarjetas img{
+    width: 50%;
+}
+.tarjetas h2{
+    font-size:25px ;
+}
+.tarjetas p{
+    font-size:18px ;
+    font-style: italic;
+}
