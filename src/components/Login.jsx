@@ -6,9 +6,8 @@ import { Link } from "react-router-dom";
 
 
 
-const Login = ({usuario,setFlagUsuario}) => {
+const Login = ({usuario,setFlagUsuario,user,setUser}) => {
 
-  const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
 
   const handlerUser = ({ target }) => {

@@ -13,16 +13,33 @@ import { Routes,Route } from "react-router-dom";
 import axios from "axios";
 
 function App() {
+  const [user, setUser] = useState('');//Estado que va a guardar el nombre del usuario
+
+  const [data, setData] = useState([]);//Array que guarda el usuario logueado
   const [usuario, setUsuario] = useState([]);//Array que guarda el listado de los usuarios
+  const [regCursos, setRegCursos] = useState([]);//Array que guarda el listado de los usuarios
+  const [cursos, setCursos] = useState([]);//Array que guarda el listado de los Cursos
   const [noticias, setNoticias] = useState([]);
   const [flagUsuario, setFlagUsuario] = useState(false);//Bandera que determina si se ha iniciado sesion
 
-  /*API DE NODE*/
+  /*Hook que guarda el dato del usuario logueado */
   useEffect(() => {
-      fetch("http://localhost:9000/api")
-      .then((res) => res.json())
-      .then((res) => setUsuario(res));
-  }, []);
+    setData(usuario.filter(infoUsuario =>
+      infoUsuario.USERNAME === user
+    ))
+  }, [user,usuario]);
+
+
+  /*API DE USUARIOS*/
+  useEffect(() => {
+    const getUsuarios = async()=>{
+      const url = "http://localhost:9000/api";
+      const {data} = await axios.get(url)
+      setUsuario(data)
+    };
+    getUsuarios()
+      
+  }, [usuario]);
 
   /*API DE NOTICIAS*/
   useEffect(() => {
@@ -34,6 +51,29 @@ function App() {
     
   }, []);
 
+  /*API DE REGISTRO DE LOS CURSOS*/
+  useEffect(() => {
+    const getRegCursos = async()=>{
+      const url = "http://localhost:9000/api_usuario_curso";
+      const {data} = await axios.get(url)
+      setRegCursos(data)
+    };
+    getRegCursos()
+      
+  }, [regCursos]);
+
+  /*API DE LOS CURSOS*/
+  useEffect(() => {
+    const getCursos = async()=>{
+      const url = "http://localhost:9000/api_curso";
+      const {data} = await axios.get(url)
+      setCursos(data)
+    };
+    getCursos()
+      
+  }, [cursos]);
+
+
   return (
     <div>
       
@@ -41,13 +81,13 @@ function App() {
         <Route path="/" element={<Cabecera flagUsuario={flagUsuario}/>}>
         <Route path="/" element={<Home />}> </Route>
         <Route path="News" element={<News noticias={noticias}/>}> </Route>
-        <Route path="Login" element={<Login usuario={usuario} setFlagUsuario={setFlagUsuario}/>}> </Route>
-        <Route path="WDev" element={<WDev/>}> </Route>
-        <Route path="Programming" element={<Programming/>}></Route>
-        <Route path="SData" element={<SData/>}> </Route>
-        <Route path="IA" element={<IA/>}> </Route>
-        <Route path="Perfil" element={<Perfil/>}> </Route>
-        <Route path="SignUp" element={<SignUp usuario={usuario} setFlagUsuario={setFlagUsuario} />}> </Route>
+        <Route path="Login" element={<Login usuario={usuario} setFlagUsuario={setFlagUsuario} user={user} setUser={setUser}/>}> </Route>
+        <Route path="WDev" element={<WDev flagUsuario={flagUsuario} regCursos={regCursos} user={user} cursos={cursos}/>}> </Route>
+        <Route path="Programming" element={<Programming flagUsuario={flagUsuario} regCursos={regCursos} user={user} cursos={cursos}/>}></Route>
+        <Route path="SData" element={<SData flagUsuario={flagUsuario} regCursos={regCursos} user={user} cursos={cursos} />}> </Route>
+        <Route path="IA" element={<IA flagUsuario={flagUsuario} regCursos={regCursos} user={user} cursos={cursos}/>}> </Route>
+        <Route path="Perfil" element={<Perfil usuario={usuario} user={user} setData={setData} data={data} setFlagUsuario={setFlagUsuario}/>}> </Route>
+        <Route path="SignUp" element={<SignUp usuario={usuario} setFlagUsuario={setFlagUsuario} setUser={setUser} />}> </Route>
         </Route>
       </Routes>
     </div>

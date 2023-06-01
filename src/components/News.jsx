@@ -11,6 +11,7 @@ const News = ({noticias}) => {
             <h2>{elemento.title}</h2>
             <img src={elemento.urlToImage} alt="" />
             <p>{elemento.description}</p>
+            <a href={elemento.url} target="_blank">Ver más</a>
           </div>
         );
       })}

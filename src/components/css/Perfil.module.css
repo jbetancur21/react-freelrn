@@ -1,7 +1,7 @@
 .container{
     padding: 2% 5%;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     grid-gap: 20px;
     width: 80%;
     margin: 5% auto;
@@ -9,11 +9,7 @@
     border-radius: 15px;
     box-shadow: 6px 8px 10px rgba(197, 197, 197, 0.37);
 }
-.container img{
-   margin: auto;
-}
 .form_login{
-    padding-top: 10%;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 20px;
@@ -33,13 +29,24 @@
     height: 35px;
     border-radius: 15px;
 }
-.form_login button{
+.button_guardar{
     font-size: 20px;
     font-weight: bold;
     padding-left: 2%;
     background-color: rgb(0, 153, 255);
     color: white;
     border: 2px rgb(0, 153, 255) solid;
+    height: 45px;
+    border-radius: 15px;
+}
+
+.button_eliminar{
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 2%;
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: 2px rgb(255, 0, 0) solid;
     height: 45px;
     border-radius: 15px;
 }
@@ -50,4 +57,20 @@
 
 .oculto{
     display:none
+}
+
+.buttonCerrar{
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 90%;
+    width: 8%;
+    background-color: rgba(255, 0, 0, 0);
+    color: rgb(255, 0, 0);
+    border: 2px rgb(255, 0, 0) solid;
+    height: 25px;
+    border-radius: 5px;
+}
+.buttonCerrar:hover{
+    color: black;
+    box-shadow: 6px 8px 10px rgb(197, 197, 197);
 }
