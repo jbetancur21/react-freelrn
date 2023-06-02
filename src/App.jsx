@@ -46,6 +46,7 @@ function App() {
     const getNoticias = async() =>{
       const response = await axios.get("https://newsapi.org/v2/everything?q=tecnologia&language=es&apiKey=969f8ce46064456bacf30b9f5dbdd96e")
       setNoticias(response.data.articles)
+      console.log(response.data.articles)
     }
     getNoticias()
     

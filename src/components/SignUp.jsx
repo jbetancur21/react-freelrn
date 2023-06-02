@@ -3,6 +3,7 @@ import styles from "./css/Login.module.css";
 import { useState } from "react";
 import LOGO from "./images/LOGO.png";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 const SignUp = ({usuario,setFlagUsuario,setUser}) => {
   const [usuarios, setUsuarios] = useState([]);//Array que va a añadir el nuevo usuario
@@ -18,20 +19,11 @@ const SignUp = ({usuario,setFlagUsuario,setUser}) => {
     i.preventDefault();
     const e = usuario.filter(nombreU => nombreU.USERNAME === usuarios.USERNAME);
     if(e.length === 1){
-      alert("Este usuario ya existe, por favor intente con otro");
+      swal({
+        text:"Este usuario ya existe, por favor intente con otro",
+        icon:"warning",
+        button:"Aceptar"});
     }else{
-      if (
-        usuarios.USERNAME === "" ||
-        usuarios.CONTRASEÑA === "" ||
-        usuarios.NOMBRE_USU === "" ||
-        usuarios.APELLIDO_USU === "" ||
-        usuarios.CORREO_USU === "" 
-      ) {
-        alert("Todos los campos son obligatorios");
-        return;
-      }
-
-
       const requestInit = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,7 +35,11 @@ const SignUp = ({usuario,setFlagUsuario,setUser}) => {
   
       setFlagUsuario(true)
       setUser(usuarios.USERNAME)
-      alert("Usuario registrado correctamente");
+      swal({
+        title:"Bienvenido a FreeLRN",
+        text:"Usuario registrado correctamente",
+        icon:"success",
+        button:"Continuar"});
       document.getElementById("oculto").click()
     }
   }
@@ -60,6 +56,7 @@ const SignUp = ({usuario,setFlagUsuario,setUser}) => {
             name="USERNAME"
             placeholder="xxxxxxxxxxxx"
             onChange={handlerChange}
+            required
           />
           <label for="email">Correo Electrónico</label>
           <input
@@ -68,6 +65,7 @@ const SignUp = ({usuario,setFlagUsuario,setUser}) => {
             name="CORREO_USU"
             placeholder="xxxxxxxxxxxx"
             onChange={handlerChange}
+            required
           />
           <label for="password">Contraseña</label>
           <input
@@ -76,6 +74,7 @@ const SignUp = ({usuario,setFlagUsuario,setUser}) => {
             type="password"
             placeholder="xxxxxxxxxxxx"
             onChange={handlerChange}
+            required
           />
 
           <label for="name">Nombre</label>
@@ -85,6 +84,7 @@ const SignUp = ({usuario,setFlagUsuario,setUser}) => {
             name="NOMBRE_USU"
             placeholder="xxxxxxxxxxxx"
             onChange={handlerChange}
+            required
           />
           <label for="lastname">Apellidos</label>
           <input
@@ -93,6 +93,7 @@ const SignUp = ({usuario,setFlagUsuario,setUser}) => {
             name="APELLIDO_USU"
             placeholder="xxxxxxxxxxxx"
             onChange={handlerChange}
+            required
           />
           <button type="submit">Registrarse</button>
         </form>

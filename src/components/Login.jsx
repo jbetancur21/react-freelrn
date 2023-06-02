@@ -3,6 +3,7 @@ import styles from "./css/Login.module.css";
 import { useState } from "react";
 import LOGO from "./images/LOGO.png";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 
 
@@ -24,10 +25,20 @@ const Login = ({usuario,setFlagUsuario,user,setUser}) => {
     const e = usuario.filter(nombreU => nombreU.USERNAME === user);
     console.log(usuario)
     if(e.length === 0){
-      alert("Este usuario no existe, por favor registrese");
+      swal({
+        text:"Este usuario no existe, por favor registrese",
+        icon:"error",
+        button:"Aceptar"})
     }else if (e[0].CONTRASEÑA != password){
-      alert("Contraseña incorrecta")
+      swal({
+        text:"Contraseña incorrecta",
+        icon:"error",
+        button:"Aceptar"})
     }else{
+      swal({
+        title:"Bienvenido",
+        icon:"success",
+        button:"Aceptar"})
       setFlagUsuario(true)
       document.getElementById("oculto").click()
     }

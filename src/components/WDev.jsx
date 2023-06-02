@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import styles from "./css/Programming.module.css";
+import swal from "sweetalert";
 
 const WDev = ({ flagUsuario, regCursos, user, cursos }) => {
   const [cursoUser, setCursoUser] = useState([]);
@@ -28,27 +29,46 @@ const WDev = ({ flagUsuario, regCursos, user, cursos }) => {
 
   const handlerSubmit = (i) => {
     i.preventDefault();
-    const requestInit = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(insert),
-    };
-    fetch("http://localhost:9000/api_usuario_curso", requestInit)
-      .then((res) => res.text())
-      .then((res) => console.log(res));
+    swal({
+      title: "¿Deseas registrarte en este curso?",
+      text: "Este curso tiene un costo de 0$",
+      icon: "warning",
+      buttons: ["No", "Si"],
+    }).then((respuesta) => {
+      if (respuesta) {
+        const requestInit = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(insert),
+        };
+        fetch("http://localhost:9000/api_usuario_curso", requestInit)
+          .then((res) => res.text())
+          .then((res) => console.log(res));
+        swal({ text: "El registro se realizó exitosamente!", icon: "success" });
+      }
+    });
   };
 
   const handleDelete = (user) => {
-    const requestInit = {
-      method: "DELETE",
-    };
-    fetch(
-      "http://localhost:9000/api_usuario_curso/" +
-      user+"/"+2 ,
-      requestInit
-    )
-      .then((res) => res.text())
-      .then((res) => console.log(res));
+    swal({
+      title: "¿Deseas eliminar este curso?",
+      icon: "warning",
+      buttons: ["No", "Si"],
+    }).then((respuesta) => {
+      if (respuesta) {
+        const requestInit = {
+          method: "DELETE",
+        };
+        fetch(
+          "http://localhost:9000/api_usuario_curso/" +
+          user+"/"+2 ,
+          requestInit
+        )
+          .then((res) => res.text())
+          .then((res) => console.log(res));
+        swal({ text: "El curso ha sido eliminado correctamente!", icon: "success" });
+      }
+    });
   };
 
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
+import swal from "sweetalert";
 import styles from "./css/Programming.module.css";
 
 const IA = ({ flagUsuario, regCursos, user, cursos }) => {
@@ -28,29 +29,51 @@ const IA = ({ flagUsuario, regCursos, user, cursos }) => {
 
   const handlerSubmit = (i) => {
     i.preventDefault();
-    const requestInit = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(insert),
-    };
-    fetch("http://localhost:9000/api_usuario_curso", requestInit)
-      .then((res) => res.text())
-      .then((res) => console.log(res));
+    swal({
+      title: "¿Deseas registrarte en este curso?",
+      text: "Este curso tiene un costo de 0$",
+      icon: "warning",
+      buttons: ["No", "Si"],
+    }).then((respuesta) => {
+      if (respuesta) {
+        const requestInit = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(insert),
+        };
+        fetch("http://localhost:9000/api_usuario_curso", requestInit)
+          .then((res) => res.text())
+          .then((res) => console.log(res));
+
+        swal({ text: "El registro se realizó exitosamente!", icon: "success" });
+      }
+    });
   };
 
   const handleDelete = (user) => {
-    const requestInit = {
-      method: "DELETE",
-    };
-    fetch(
-      "http://localhost:9000/api_usuario_curso/" +
-      user+"/"+4 ,
-      requestInit
-    )
-      .then((res) => res.text())
-      .then((res) => console.log(res));
-  };
+    swal({
+      title: "¿Deseas eliminar este curso?",
+      icon: "warning",
+      buttons: ["No", "Si"],
+    }).then((respuesta) => {
+      if (respuesta) {
+        const requestInit = {
+          method: "DELETE",
+        };
+        fetch(
+          "http://localhost:9000/api_usuario_curso/" + user + "/" + 4,
+          requestInit
+        )
+          .then((res) => res.text())
+          .then((res) => console.log(res));
 
+        swal({
+          text: "El curso ha sido eliminado correctamente!",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
     <div>
@@ -71,10 +94,7 @@ const IA = ({ flagUsuario, regCursos, user, cursos }) => {
             </div>
 
             <div class="statistics-right">
-              <img
-                src="images/index/ia1.jpeg"
-                alt=""
-              />
+              <img src="images/index/ia1.jpeg" alt="" />
             </div>
           </div>
           <div class="statistics">
@@ -117,7 +137,12 @@ const IA = ({ flagUsuario, regCursos, user, cursos }) => {
               );
             })}
           </div>
-          <button className={styles.buttonBorrarCurso} onClick={()=>handleDelete(user)}>Eliminar Curso</button>
+          <button
+            className={styles.buttonBorrarCurso}
+            onClick={() => handleDelete(user)}
+          >
+            Eliminar Curso
+          </button>
           <br />
           <br />
         </div>
@@ -130,7 +155,7 @@ const IA = ({ flagUsuario, regCursos, user, cursos }) => {
             <div class="statistics-left">
               <h2>Inteligencia Artificial</h2>
               <p>
-              La inteligencia artificial (IA), en el contexto de las ciencias
+                La inteligencia artificial (IA), en el contexto de las ciencias
                 de la computación, es una disciplina y un conjunto de
                 capacidades cognoscitivas e intelectuales expresadas por
                 sistemas informáticos o combinaciones de algoritmos cuyo
@@ -141,10 +166,7 @@ const IA = ({ flagUsuario, regCursos, user, cursos }) => {
             </div>
 
             <div class="statistics-right">
-              <img
-                src="images/index/ia1.jpeg"
-                alt=""
-              />
+              <img src="images/index/ia1.jpeg" alt="" />
             </div>
           </div>
           <div class="statistics">
@@ -153,7 +175,7 @@ const IA = ({ flagUsuario, regCursos, user, cursos }) => {
             </div>
             <div class="statistics-left">
               <p>
-              Descubre el mundo de la IA desde cero y sin saber programación.
+                Descubre el mundo de la IA desde cero y sin saber programación.
                 Domina los conceptos fundamentales y conoce sus aplicaciones
                 prácticas en una variedad de campos. Usa herramientas como
                 ChatGPT, Dall-E 2 y Hugging Face. Aprender de inteligencia
